@@ -117,3 +117,17 @@
   .split-resume{grid-template-columns:1fr;gap:26px;}
   .timeline-item{grid-template-columns:74px 1fr;}
 }
+
+/* update: expanded Illustration / Art & Merchandise draggable gallery */
+.merch-gallery.desk-collage{height:850px;overflow:auto;padding:18px;}
+.merch-gallery.desk-collage:before{content:"drag / double click to preview";position:sticky;top:10px;left:12px;display:inline-flex;padding:8px 12px;border:1.5px solid #000;border-radius:999px;background:rgba(255,255,255,.62);backdrop-filter:blur(10px);font-size:12px;font-weight:900;z-index:15;margin-bottom:10px}
+.merch-1{left:5%;top:70px;width:44%;--r:-4deg;transform:rotate(var(--r));z-index:4}
+.merch-2{left:55%;top:90px;width:23%;--r:5deg;transform:rotate(var(--r));z-index:3}
+.merch-3{left:48%;top:300px;width:38%;--r:3deg;transform:rotate(var(--r));z-index:2}
+.merch-4{left:10%;top:330px;width:34%;--r:-7deg;transform:rotate(var(--r));z-index:5}
+.merch-5{left:62%;top:540px;width:23%;--r:6deg;transform:rotate(var(--r));z-index:5}
+.merch-6{left:8%;top:610px;width:32%;--r:-2deg;transform:rotate(var(--r));z-index:4}
+.merch-7{left:40%;top:650px;width:28%;--r:5deg;transform:rotate(var(--r));z-index:5}
+.merch-8{left:28%;top:920px;width:42%;--r:-3deg;transform:rotate(var(--r));z-index:4}
+.merch-gallery.desk-collage:after{content:"";position:absolute;left:0;top:1240px;width:1px;height:1px;pointer-events:none}
+@media(max-width:800px){.merch-gallery.desk-collage{height:720px}.merch-1{width:76%;left:4%;top:60px}.merch-2{width:48%;left:48%;top:285px}.merch-3{width:68%;left:18%;top:520px}.merch-4{width:58%;left:3%;top:790px}.merch-5{width:45%;left:52%;top:1040px}.merch-6{width:58%;left:4%;top:1250px}.merch-7{width:58%;left:40%;top:1510px}.merch-8{width:80%;left:8%;top:1760px}.merch-gallery.desk-collage:after{top:2140px}}

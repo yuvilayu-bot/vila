@@ -5,7 +5,11 @@ const projects = [
     'assets/merch/namwon-banner.png',
     'assets/merch/whale-phonecase.png',
     'assets/merch/cat-characters.png',
-    'assets/merch/mute-heart.png'
+    'assets/merch/mute-heart.png',
+    'assets/merch/bunny-character.png',
+    'assets/merch/korean-typography.png',
+    'assets/merch/devil-fairy.png',
+    'assets/merch/guitar-girl.png'
   ]},
   {folder:'📂 Visual Motion', title:'Visual Motion', subtitle:'YouTube motion gallery', type:'youtube', text:'Created frame-by-frame visual videos combining illustration and motion design. Each work translates the mood of music into moving visuals and strengthens storytelling.', videos:[
     {title:'อยากให้เธอเก็บไว้', artist:'Mac Punnapob', url:'https://youtu.be/T-7_hOWKbpY?si=GRPokLAKg01lVZgO', embed:'https://www.youtube.com/embed/T-7_hOWKbpY'},
