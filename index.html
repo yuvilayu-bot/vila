@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vila — Desktop Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="cursor"></div>
+  <div class="glow glow-blue"></div>
+  <div class="glow glow-pink"></div>
+  <div class="glow glow-green"></div>
+  <div class="topbar">
+    <div class="brand">VILA OS</div>
+    <div class="clock" id="clock">00:00</div>
+  </div>
+
+  <main class="desktop" id="desktop">
+    <section class="hero hero-minimal">
+      <h1 id="heroTitle" class="hero-title">Hi! I'm Vila</h1>
+    </section>
+
+    <button class="icon desktop-file" data-window="about" style="--x:7%;--y:28%"><span>📁</span><b>About Me</b></button>
+    <button class="icon desktop-file" data-window="projects" style="--x:7%;--y:43%"><span>📁</span><b>My Projects</b></button>
+    <button class="icon desktop-file" data-window="playground" style="--x:7%;--y:58%"><span>📁</span><b>Playground</b></button>
+    <button class="icon desktop-file" data-window="experience" style="--x:80%;--y:28%"><span>📁</span><b>Experience & Education</b></button>
+    <button class="icon desktop-file" data-window="contact" style="--x:80%;--y:43%"><span>📁</span><b>Contact</b></button>
+    <button class="icon desktop-file" data-window="music" style="--x:80%;--y:58%"><span>🎵</span><b>Now Playing</b></button>
+
+    <div class="sticker drag" style="--x:26%;--y:73%;--rot:8deg">play with me ✦</div>
+  </main>
+
+  <section class="window open" id="about" style="left: 22%; top: 18%; width: 520px;">
+    <header><span>About Me</span><button>×</button></header>
+    <div class="content about-content">
+      <h2>Hi, I'm Vila.</h2>
+      <p>A multidisciplinary designer inspired by music, fashion, and visual arts.</p>
+      <p>I bring ideas to life through vibrant colors, illustrations, and creative content that connect with people in a playful way.</p>
+      <p>Living and studying in Seoul, I mix cultural experiences into my design journey.</p>
+      <div class="chips"><span>visual & sound ideas</span><span>illustration</span><span>design</span><span>emotion</span></div>
+    </div>
+  </section>
+
+  <section class="window" id="projects" style="left: 18%; top: 13%; width: 760px;">
+    <header><span>My Projects</span><button>×</button></header>
+    <div class="content project-app">
+      <aside class="folders" id="projectFolders"></aside>
+      <article class="project-detail">
+        <h2 id="projectTitle">Creative Content</h2>
+        <p id="projectSubtitle">What The Duck Music Company</p>
+        <img id="projectImage" src="assets/pages/page3.jpg" alt="Project image" />
+        <p id="projectText"></p>
+        <div class="navbtns"><button id="prevProject">◀ Previous</button><button id="nextProject">Next ▶</button></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="window" id="playground" style="left: 30%; top: 24%; width: 540px;">
+    <header><span>Playground</span><button>×</button></header>
+    <div class="content playground">
+      <h2>Play With Me</h2>
+      <p>Drag the stickers, move the windows, open folders, and build your own Vila desktop.</p>
+      <button class="toy" id="spawnSticker">Add random sticker</button>
+      <button class="toy" id="shuffleWindows">Shuffle windows</button>
+      <div class="mini-wall" id="miniWall"></div>
+    </div>
+  </section>
+
+  <section class="window" id="experience" style="left: 16%; top: 16%; width: 860px;">
+    <header><span>Experience & Education</span><button>×</button></header>
+    <div class="content timeline split-resume">
+      <div class="resume-column education-column">
+        <h2>Education</h2>
+        <div class="timeline-item blue-dot">
+          <span class="year">Present</span>
+          <div>
+            <h3>Ewha Womans University</h3>
+            <p>Seoul, South Korea</p>
+          </div>
+        </div>
+        <div class="timeline-item blue-dot">
+          <span class="year">2020</span>
+          <div>
+            <h3>Bachelor of Fine Arts</h3>
+            <p>Silpakorn University — Fashion Design Major</p>
+          </div>
+        </div>
+        <div class="timeline-item blue-dot">
+          <span class="year">2019</span>
+          <div>
+            <h3>Communication University of China</h3>
+            <p>Beijing, China</p>
+          </div>
+        </div>
+        <div class="timeline-item blue-dot">
+          <span class="year">2013</span>
+          <div>
+            <h3>Samsen Wittayalai School</h3>
+            <p>Middle & High School</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="resume-column experience-column">
+        <h2>Experience</h2>
+        <div class="timeline-item green-dot">
+          <span class="year">2020</span>
+          <div>
+            <h3>Content Creator</h3>
+            <p>What The Duck Music Company</p>
+            <ul>
+              <li>Content planning & campaign ideas</li>
+              <li>Social media storytelling</li>
+              <li>Creative concept development</li>
+              <li>On-site coverage</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="window" id="contact" style="left: 34%; top: 28%; width: 440px;">
+    <header><span>Contact</span><button>×</button></header>
+    <div class="content contact">
+      <h2>Let’s create something playful.</h2>
+      <p>Instagram: @vvhavvha</p>
+      <p>Email: vilavilakarn@gmail.com</p>
+      <p>Phone: +66 94 884 0345</p>
+      <p>Languages: TH / ENG / KOR / CH</p>
+    </div>
+  </section>
+
+  <section class="window" id="music" style="left: 58%; top: 17%; width: 400px;">
+    <header><span>Now Playing</span><button>×</button></header>
+    <div class="content music">
+      <div class="disc">♫</div>
+      <h2>Now Playing</h2>
+      <p id="trackName">Open the song on YouTube</p>
+      <a class="youtube-link" href="https://www.youtube.com/watch?v=-BIXGlShSH4" target="_blank" rel="noopener">▶ Play on YouTube</a>
+      <p class="note">Click the button to open the selected track in a new tab.</p>
+      <div class="equalizer"><i></i><i></i><i></i><i></i><i></i></div>
+    </div>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>
