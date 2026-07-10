@@ -30,6 +30,7 @@
     <button class="icon desktop-file" data-window="experience" style="--x:80%;--y:28%"><span>📁</span><b>Experience & Education</b></button>
     <button class="icon desktop-file" data-window="contact" style="--x:80%;--y:43%"><span>📁</span><b>Contact</b></button>
     <button class="icon desktop-file" data-window="music" style="--x:80%;--y:58%"><span>🎵</span><b>Now Playing</b></button>
+    <button class="icon desktop-file" data-window="favsong" style="--x:80%;--y:73%"><span>💿</span><b>My Fav Song</b></button>
 
     <div class="sticker drag" style="--x:26%;--y:73%;--rot:8deg">play with me ✦</div>
   </main>
@@ -128,7 +129,7 @@
     <header><span>Contact</span><button>×</button></header>
     <div class="content contact">
       <h2>Let’s create something playful.</h2>
-      <p>Instagram: @vvhavvha</p>
+      <p>Instagram: <a class="contact-link" href="https://www.instagram.com/vvhavvha/" target="_blank" rel="noopener">@vvhavvha</a></p>
       <p>Email: vilavilakarn@gmail.com</p>
       <p>Phone: +66 94 884 0345</p>
       <p>Languages: TH / ENG / KOR / CH</p>
@@ -141,9 +142,32 @@
       <div class="disc">♫</div>
       <h2>Now Playing</h2>
       <p id="trackName">Open the song on YouTube</p>
-      <a class="youtube-link" href="https://www.youtube.com/watch?v=-BIXGlShSH4" target="_blank" rel="noopener">▶ Play on YouTube</a>
+      <a class="youtube-link" href="https://youtu.be/Qfv4IGeFYRg?si=dMs46VBLn_NHE-UH" target="_blank" rel="noopener">▶ Play on YouTube</a>
       <p class="note">Click the button to open the selected track in a new tab.</p>
       <div class="equalizer"><i></i><i></i><i></i><i></i><i></i></div>
+    </div>
+  </section>
+
+  <section class="window" id="favsong" style="left: 52%; top: 24%; width: 520px;">
+    <header><span>My Fav Song</span><button>×</button></header>
+    <div class="content fav-song">
+      <div class="spotify-shell">
+        <div class="playlist-cover">
+          <span>♡</span>
+          <b>VILA MIX</b>
+        </div>
+        <div class="playlist-info">
+          <p class="spotify-label">Playlist</p>
+          <h2>My Fav Song</h2>
+          <p class="playlist-desc">A soft little playlist corner from Vila OS.</p>
+          <a class="spotify-button" href="https://open.spotify.com/playlist/77tSz3auLwENWYyWAQ6prK?si=89cb071da76c4661" target="_blank" rel="noopener">▶ Open on Spotify</a>
+        </div>
+      </div>
+      <div class="track-list">
+        <div><span>01</span><b>Vila's current fav playlist</b><small>Spotify playlist</small></div>
+        <div><span>02</span><b>songs for walking in Seoul</b><small>soft / dreamy / playful</small></div>
+        <div><span>03</span><b>press play & float</b><small>click to listen</small></div>
+      </div>
     </div>
   </section>
 

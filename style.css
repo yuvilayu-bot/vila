@@ -159,3 +159,16 @@
   .window{position:fixed!important; left:4%!important; top:7%!important; width:92%!important; max-height:88vh;}
   .content{max-height:calc(88vh - 42px);}
 }
+
+/* update: My Fav Song Spotify-style folder + clickable contact */
+.contact-link{color:#000;text-decoration:none;font-weight:900;border-bottom:2px solid var(--green);padding-bottom:2px}
+.contact-link:hover{background:var(--yellow);border-radius:999px;padding:4px 8px;border-bottom:0}
+.fav-song{padding:0;overflow:hidden}.spotify-shell{display:grid;grid-template-columns:165px 1fr;gap:20px;align-items:end;padding:26px;background:linear-gradient(135deg,rgba(0,132,113,.78),rgba(128,176,232,.58) 48%,rgba(255,192,192,.68));border-bottom:1.5px solid rgba(0,0,0,.65)}.playlist-cover{aspect-ratio:1;border:1.5px solid #000;border-radius:28px;background:radial-gradient(circle at 30% 25%,var(--pink),transparent 38%),radial-gradient(circle at 72% 68%,var(--yellow),transparent 42%),var(--purple);display:grid;place-items:center;text-align:center;box-shadow:0 22px 46px rgba(0,0,0,.22);font-weight:900;letter-spacing:-.04em}.playlist-cover span{font-size:54px;line-height:1}.playlist-cover b{font-size:18px;margin-top:-44px}.spotify-label{text-transform:uppercase;font-size:12px;font-weight:900;letter-spacing:.12em;margin:0 0 8px}.playlist-info h2{font-size:56px;margin:0 0 10px;letter-spacing:-.07em}.playlist-desc{font-weight:700;margin:0 0 16px}.spotify-button{display:inline-flex;align-items:center;justify-content:center;border:1.5px solid #000;border-radius:999px;background:var(--yellow);color:#000;text-decoration:none;font-weight:900;padding:12px 18px;box-shadow:0 0 32px rgba(214,211,95,.75)}.spotify-button:hover{transform:scale(1.04)}.track-list{padding:16px 22px 22px;background:rgba(0,0,0,.05)}.track-list div{display:grid;grid-template-columns:36px 1fr;gap:8px;padding:13px 8px;border-bottom:1px solid rgba(0,0,0,.16);align-items:center}.track-list div:hover{background:rgba(255,255,255,.32);border-radius:14px}.track-list span{font-weight:900;color:var(--green)}.track-list b{font-size:15px}.track-list small{grid-column:2;font-weight:800;opacity:.7}.fav-song .content h2{margin:0}
+@media(max-width:800px){.desktop .icon[data-window="favsong"]{--x:66%;--y:72%;}.spotify-shell{grid-template-columns:1fr;padding:22px}.playlist-cover{width:165px}.playlist-info h2{font-size:46px}.fav-song{max-height:calc(88vh - 42px);overflow:auto}}
+
+/* mobile polish: keep desktop-like click/drag behaviour on touch */
+@media(max-width:800px){
+  .desktop .icon{transition:transform .18s ease, filter .18s ease;}
+  .desktop .icon:active{transform:scale(1.08) rotate(-2deg);filter:drop-shadow(0 16px 22px rgba(0,0,0,.18));}
+  .desktop .icon[data-window="favsong"] span{font-size:46px;}
+}
