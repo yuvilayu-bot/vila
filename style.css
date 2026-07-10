@@ -131,3 +131,31 @@
 .merch-8{left:28%;top:920px;width:42%;--r:-3deg;transform:rotate(var(--r));z-index:4}
 .merch-gallery.desk-collage:after{content:"";position:absolute;left:0;top:1240px;width:1px;height:1px;pointer-events:none}
 @media(max-width:800px){.merch-gallery.desk-collage{height:720px}.merch-1{width:76%;left:4%;top:60px}.merch-2{width:48%;left:48%;top:285px}.merch-3{width:68%;left:18%;top:520px}.merch-4{width:58%;left:3%;top:790px}.merch-5{width:45%;left:52%;top:1040px}.merch-6{width:58%;left:4%;top:1250px}.merch-7{width:58%;left:40%;top:1510px}.merch-8{width:80%;left:8%;top:1760px}.merch-gallery.desk-collage:after{top:2140px}}
+
+/* Mobile interaction update: same desktop behaviour on touch screens */
+@media (hover:none), (pointer:coarse){
+  body{cursor:auto; overflow:hidden;}
+  .cursor{display:none;}
+  .desktop{height:calc(100vh - 42px); min-height:calc(100vh - 42px); overflow:hidden; touch-action:none;}
+  .desktop .icon{position:absolute!important; margin:0!important; left:var(--x)!important; top:var(--y)!important; touch-action:none;}
+  .desktop .icon span{font-size:48px;}
+  .desktop .icon b{font-size:12px; max-width:112px; line-height:1.05;}
+  .window{touch-action:none;}
+  .window .content{touch-action:pan-y; -webkit-overflow-scrolling:touch;}
+  .hero-title{touch-action:none; user-select:none; -webkit-user-select:none;}
+}
+@media(max-width:800px){
+  body{overflow:hidden;}
+  .desktop{height:calc(100vh - 42px); min-height:calc(100vh - 42px); overflow:hidden;}
+  .desktop .icon{position:absolute!important; margin:0!important; left:var(--x)!important; top:var(--y)!important;}
+  .desktop .icon[data-window="about"]{--x:6%;--y:30%;}
+  .desktop .icon[data-window="projects"]{--x:6%;--y:44%;}
+  .desktop .icon[data-window="playground"]{--x:6%;--y:58%;}
+  .desktop .icon[data-window="experience"]{--x:66%;--y:30%;}
+  .desktop .icon[data-window="contact"]{--x:66%;--y:44%;}
+  .desktop .icon[data-window="music"]{--x:66%;--y:58%;}
+  .hero-minimal{height:50vh; pointer-events:none;}
+  .hero-title{top:23%; left:50%; max-width:92vw; white-space:nowrap;}
+  .window{position:fixed!important; left:4%!important; top:7%!important; width:92%!important; max-height:88vh;}
+  .content{max-height:calc(88vh - 42px);}
+}

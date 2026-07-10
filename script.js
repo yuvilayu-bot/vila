@@ -110,14 +110,39 @@ function openWindow(id){const w=document.getElementById(id); w.classList.add('op
 document.querySelectorAll('.window header button').forEach(btn=>btn.onclick=e=>e.target.closest('.window').classList.remove('open'));
 let z=30; function bringFront(el){el.style.zIndex=++z;}
 
+function getPoint(e){
+  if(e.touches && e.touches[0]) return e.touches[0];
+  if(e.changedTouches && e.changedTouches[0]) return e.changedTouches[0];
+  return e;
+}
+
 function makeDraggable(el, handle=el){
-  let sx,sy,l,t,drag=false;
-  handle.addEventListener('mousedown',e=>{drag=true;bringFront(el);sx=e.clientX;sy=e.clientY;l=el.offsetLeft;t=el.offsetTop;document.body.style.userSelect='none'});
-  window.addEventListener('mousemove',e=>{if(!drag)return; el.style.left=l+e.clientX-sx+'px'; el.style.top=t+e.clientY-sy+'px';});
-  window.addEventListener('mouseup',()=>{drag=false;document.body.style.userSelect='auto'});
-  handle.addEventListener('touchstart',e=>{const touch=e.touches[0];drag=true;sx=touch.clientX;sy=touch.clientY;l=el.offsetLeft;t=el.offsetTop;},{passive:true});
-  window.addEventListener('touchmove',e=>{if(!drag)return;const touch=e.touches[0];el.style.left=l+touch.clientX-sx+'px';el.style.top=t+touch.clientY-sy+'px';},{passive:true});
-  window.addEventListener('touchend',()=>drag=false);
+  let sx=0, sy=0, l=0, t=0, dragging=false, pointerId=null;
+  handle.style.touchAction = 'none';
+  handle.addEventListener('pointerdown', e=>{
+    if(e.button !== undefined && e.button !== 0) return;
+    dragging=true; pointerId=e.pointerId;
+    bringFront(el);
+    const p=getPoint(e);
+    sx=p.clientX; sy=p.clientY; l=el.offsetLeft; t=el.offsetTop;
+    el.classList.add('dragging');
+    document.body.style.userSelect='none';
+    try{handle.setPointerCapture(pointerId)}catch(err){}
+  });
+  handle.addEventListener('pointermove', e=>{
+    if(!dragging || (pointerId!==null && e.pointerId!==pointerId)) return;
+    const p=getPoint(e);
+    el.style.left=l+p.clientX-sx+'px';
+    el.style.top=t+p.clientY-sy+'px';
+  });
+  function stop(e){
+    if(!dragging) return;
+    dragging=false; pointerId=null;
+    el.classList.remove('dragging');
+    document.body.style.userSelect='auto';
+  }
+  handle.addEventListener('pointerup', stop);
+  handle.addEventListener('pointercancel', stop);
 }
 document.querySelectorAll('.window').forEach(w=>makeDraggable(w,w.querySelector('header')));
 document.querySelectorAll('.drag').forEach(el=>makeDraggable(el));
@@ -160,26 +185,40 @@ document.getElementById('spawnSticker').onclick=()=>{
 document.getElementById('shuffleWindows').onclick=()=>document.querySelectorAll('.window.open').forEach(w=>{w.style.left=Math.random()*45+15+'%';w.style.top=Math.random()*35+12+'%';});
 
 function makeDesktopFileDraggable(icon){
-  let sx=0, sy=0, l=0, t=0, dragging=false, moved=false;
-  icon.addEventListener('mousedown', e=>{
-    dragging=true; moved=false; sx=e.clientX; sy=e.clientY; l=icon.offsetLeft; t=icon.offsetTop;
-    icon.classList.add('dragging'); document.body.style.userSelect='none';
+  let sx=0, sy=0, l=0, t=0, dragging=false, moved=false, pointerId=null;
+  icon.style.touchAction = 'none';
+  icon.addEventListener('pointerdown', e=>{
+    if(e.button !== undefined && e.button !== 0) return;
+    dragging=true; moved=false; pointerId=e.pointerId;
+    sx=e.clientX; sy=e.clientY; l=icon.offsetLeft; t=icon.offsetTop;
+    bringFront(icon);
+    icon.classList.add('dragging');
+    document.body.style.userSelect='none';
+    try{icon.setPointerCapture(pointerId)}catch(err){}
   });
-  window.addEventListener('mousemove', e=>{
-    if(!dragging) return;
+  icon.addEventListener('pointermove', e=>{
+    if(!dragging || (pointerId!==null && e.pointerId!==pointerId)) return;
     const dx=e.clientX-sx, dy=e.clientY-sy;
-    if(Math.abs(dx)+Math.abs(dy)>4) moved=true;
-    icon.style.left=l+dx+'px'; icon.style.top=t+dy+'px';
+    if(Math.abs(dx)+Math.abs(dy)>6) moved=true;
+    icon.style.left=l+dx+'px';
+    icon.style.top=t+dy+'px';
   });
-  window.addEventListener('mouseup', e=>{
+  function stop(e){
     if(!dragging) return;
-    dragging=false; icon.classList.remove('dragging'); document.body.style.userSelect='auto';
-  });
-  icon.addEventListener('click', e=>{ if(moved){ e.stopImmediatePropagation(); e.preventDefault(); moved=false; }});
+    dragging=false; pointerId=null;
+    icon.classList.remove('dragging');
+    document.body.style.userSelect='auto';
+    setTimeout(()=>{moved=false}, 120);
+  }
+  icon.addEventListener('pointerup', stop);
+  icon.addEventListener('pointercancel', stop);
+  icon.addEventListener('click', e=>{
+    if(moved){ e.stopImmediatePropagation(); e.preventDefault(); }
+  }, true);
 }
 document.querySelectorAll('.desktop-file').forEach(makeDesktopFileDraggable);
 
-// update: make “Hi! I'm Vila” draggable and explode on double-click
+// update: make “Hi! I'm Vila” draggable and explode on double-click / double-tap
 (function initHeroTitle(){
   const hero = document.getElementById('heroTitle');
   const desktop = document.getElementById('desktop');
@@ -189,7 +228,6 @@ document.querySelectorAll('.desktop-file').forEach(makeDesktopFileDraggable);
   hero.innerHTML = [...original].map(ch => `<span class="letter">${ch === ' ' ? '&nbsp;' : ch}</span>`).join('');
   const letters = [...hero.querySelectorAll('.letter')];
 
-  // Convert center-positioned title into pixel position so it can be dragged freely.
   requestAnimationFrame(() => {
     const d = desktop.getBoundingClientRect();
     const r = hero.getBoundingClientRect();
@@ -198,33 +236,44 @@ document.querySelectorAll('.desktop-file').forEach(makeDesktopFileDraggable);
     hero.style.transform = 'none';
   });
 
-  let sx = 0, sy = 0, startLeft = 0, startTop = 0, dragging = false;
+  let sx = 0, sy = 0, startLeft = 0, startTop = 0, dragging = false, moved = false, pointerId = null;
+  let lastTap = 0;
+
   function pointerDown(e){
-    dragging = true;
+    if(e.button !== undefined && e.button !== 0) return;
+    dragging = true; moved = false; pointerId = e.pointerId;
     hero.classList.add('dragging');
-    const p = e.touches ? e.touches[0] : e;
-    sx = p.clientX; sy = p.clientY;
+    sx = e.clientX; sy = e.clientY;
     startLeft = hero.offsetLeft; startTop = hero.offsetTop;
     document.body.style.userSelect = 'none';
+    try{hero.setPointerCapture(pointerId)}catch(err){}
   }
   function pointerMove(e){
-    if(!dragging) return;
-    const p = e.touches ? e.touches[0] : e;
-    hero.style.left = (startLeft + p.clientX - sx) + 'px';
-    hero.style.top = (startTop + p.clientY - sy) + 'px';
+    if(!dragging || (pointerId !== null && e.pointerId !== pointerId)) return;
+    const dx = e.clientX - sx;
+    const dy = e.clientY - sy;
+    if(Math.abs(dx) + Math.abs(dy) > 6) moved = true;
+    hero.style.left = (startLeft + dx) + 'px';
+    hero.style.top = (startTop + dy) + 'px';
   }
-  function pointerUp(){
+  function pointerUp(e){
+    if(!dragging) return;
     dragging = false;
     hero.classList.remove('dragging');
     document.body.style.userSelect = 'auto';
+
+    if(!moved){
+      e.preventDefault();
+      toggleExplosion();
+      lastTap = 0;
+    }
+    pointerId = null;
   }
 
-  hero.addEventListener('mousedown', pointerDown);
-  window.addEventListener('mousemove', pointerMove);
-  window.addEventListener('mouseup', pointerUp);
-  hero.addEventListener('touchstart', pointerDown, {passive:true});
-  window.addEventListener('touchmove', pointerMove, {passive:true});
-  window.addEventListener('touchend', pointerUp);
+  hero.addEventListener('pointerdown', pointerDown);
+  hero.addEventListener('pointermove', pointerMove);
+  hero.addEventListener('pointerup', pointerUp);
+  hero.addEventListener('pointercancel', () => { dragging=false; hero.classList.remove('dragging'); document.body.style.userSelect='auto'; });
 
   function makeSparkles(){
     const r = hero.getBoundingClientRect();
@@ -243,13 +292,15 @@ document.querySelectorAll('.desktop-file').forEach(makeDesktopFileDraggable);
     }
   }
 
-  hero.addEventListener('dblclick', (e) => {
-    e.preventDefault();
-    const exploded = hero.classList.toggle('exploded');
+  function toggleExplosion(force){
+    const exploded = typeof force === 'boolean' ? force : !hero.classList.contains('exploded');
+    hero.classList.toggle('exploded', exploded);
     if(exploded){
       letters.forEach((letter, i) => {
-        const x = (Math.random() * 900 - 450);
-        const y = (Math.random() * 560 - 280);
+        const limitX = Math.min(window.innerWidth * .42, 450);
+        const limitY = Math.min(window.innerHeight * .36, 300);
+        const x = (Math.random() * limitX * 2 - limitX);
+        const y = (Math.random() * limitY * 2 - limitY);
         const r = (Math.random() * 1440 - 720);
         const scale = 0.85 + Math.random() * 0.75;
         letter.style.transform = `translate(${x}px, ${y}px) rotate(${r}deg) scale(${scale})`;
@@ -262,5 +313,10 @@ document.querySelectorAll('.desktop-file').forEach(makeDesktopFileDraggable);
         letter.style.transitionDelay = (i * 0.012) + 's';
       });
     }
+  }
+
+  hero.addEventListener('dblclick', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
   });
 })();
